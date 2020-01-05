@@ -1,0 +1,27 @@
+spring:
+  application:
+    name:rxRefillMgt
+---
+spring:
+  profiles:
+    active:dev
+  main:
+    banner-mode: "off"
+---
+spring:
+  profiles: qa
+  data.mongodb:
+    host:localhost
+    port:27017
+    database:local
+---
+spring:
+  profiles: test
+
+---
+#Logging
+logging:
+  config:
+    classpath:logback-spring.xml
+---
+

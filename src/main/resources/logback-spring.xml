@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+  <contextName>${spring.application.name}</contextName>
+  <springProperty scope="context" name="app" source="spring.application.name"/>
+  <timestamp key="bySecond" datePattern="yyyyMMdd'T'HHmmss"/>
+
+  <appender name="jsonConsoleAppender" class="ch.qos.logback.core.ConsoleAppender">
+  <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+    <provider class="net.logstash.logback.composite.loggingevent.ArgumentsJsonProvider"/>
+    <fieldNames>
+      <timestamp>datets</timestamp>
+      <message>message</message>
+      <thread>[ignore]</thread>
+      <levelValue>[ignore]</levelValue>
+      <logger>logger</logger>
+      <version>[ignore]</version>
+    </fieldNames>
+  </encoder>
+  </appender>
+
+
+  <springProfile name="dev">
+    <root level="DEBUG" additivity="false">
+      <appender-ref ref="jsonConsoleAppender"/>
+    </root>
+  </springProfile>
+  <springProfile name="prod" additivity="false">
+    <root level="INFO">
+      <appender-ref ref="jsonConsoleAppender"/>
+    </root>
+  </springProfile>
+
+</configuration>
